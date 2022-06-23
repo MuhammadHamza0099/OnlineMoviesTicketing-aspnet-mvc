@@ -6,11 +6,13 @@ namespace MovieTicket.Data.Services
     {
         IEnumerable<Actor> GetAll();
 
-        Actor GetById(int id);
+        Task<Actor> GetByIdAsync(int id);
 
         void Add(Actor actor);
         void Update(int id, Actor newActor);
 
-        void Delete(int id);
+        Task DeleteAsync(int id);
+        Task UpdateAsync(int id, Actor actor);
+        Task UpdateAsync(Actor actor);
     }
 }

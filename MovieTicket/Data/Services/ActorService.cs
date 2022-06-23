@@ -12,21 +12,18 @@ namespace MovieTicket.Data.Services
             _context = context;
         }
 
-        public void Add(Actor actor)
+        public async Task DeleteAsync(int id)
         {
-            _context.Actors.Add(actor);
-            _context.SaveChanges();
+            var results = await _context.Actors.FirstOrDefaultAsync(n => n.Id == id);
+           // Actor actor = _context.Actors.Find(id);
+            _context.Actors.Remove(results);
+            await _context.SaveChangesAsync();
         }
 
-        public void Delete(int id)
+        public async Task<Actor> GetByIdAsync(int id)
         {
-            Actor actor = _context.Actors.Find(id);
-            _context.Actors.Remove(actor);
-        }
-
-        public Actor GetById(int id)
-        {
-            return _context.Actors.Find(id);
+            var results =await _context.Actors.FirstOrDefaultAsync(n => n.Id == id);
+            return results;
         }
 
         public void Update(int id, Actor newActor)
@@ -42,6 +39,30 @@ namespace MovieTicket.Data.Services
         public IEnumerable<Actor> GetAll()
         {
             return _context.Actors.ToList();
+        }
+
+        public async Task UpdateAsync(int id, Actor actor)
+        {
+            Actor actorInDb = _context.Actors.FirstOrDefault(x => x.Id == id);
+            if (actorInDb == null)
+                return;
+            actorInDb.ProfilePictureUrl= actor.ProfilePictureUrl;
+            actorInDb.FullName = actor.FullName;
+            actorInDb.Bio = actor.Bio;
+            _context.Actors.Update(actorInDb);
+            await _context.SaveChangesAsync();
+        }
+
+        void IActorService.Add(Actor actor)
+        {
+            _context.Actors.Add(actor);
+            _context.SaveChanges();
+        }
+
+        public async Task UpdateAsync(Actor actor)
+        {
+           await _context.Actors.AddAsync(actor);
+            _context.SaveChanges();
         }
     }
 }

@@ -42,9 +42,9 @@
                             @Html.DisplayFor(modelItem => item.Bio)
                         </td>
                         <td>
-                            <a class="btn btn btn-default"><i class="bi bi-pencil-square"></i>Edit</a> |
-                            <a class="btn btn-info"><i class="bi bi-eye"></i>Details</a> |
-                            <a class="btn btn-danger"><i class="bi bi-trash"></i>Delete</a> 
+                            <a class="btn btn btn-default" asp-action="Edit" asp-route-id="@item.Id"><i class="bi bi-pencil-square"></i>Edit</a> |
+                            <a class="btn btn-info" asp-controller="Actors" asp-action="Details" asp-route-id="@item.Id"><i class="bi bi-eye"></i>Details</a> |
+                            <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id"><i class="bi bi-trash"></i>Delete</a> 
                         </td>
                     </tr>
                 }
@@ -53,3 +53,7 @@
     </div>
 </div>
 
+<div class="text-white" style="position:fixed; right:25px; bottom:35px;">
+    <a asp-controller="Actors" asp-action="Create" class="btn btn-success">
+        <i class="bi bi-plus-circle" style="margin-right:10px;">&nbsp; Add New</i></a>
+</div>

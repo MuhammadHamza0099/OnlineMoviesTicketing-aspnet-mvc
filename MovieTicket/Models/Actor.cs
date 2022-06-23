@@ -7,12 +7,15 @@ namespace MovieTicket.Models
         [Key]
         public int Id { get; set; }
         [Display (Name = "Profile Picture Url")]
+        [Required(ErrorMessage = "Profile Picture is required")]
         public string ProfilePictureUrl { get; set; }
 
         [Display(Name = "Full Name")]
+        [Required(ErrorMessage = "Full Name is Required")]
         public string FullName { get; set; }
 
         [Display(Name = "BioGraphy")]
+        [Required(ErrorMessage = "Biography is Required")]
         public string Bio { get; set; }
         public virtual List<Movie> Movies { get; set; }
 
